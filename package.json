@@ -1,0 +1,25 @@
+{
+  "name": "crud-nodeapi-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mugara250/crud-nodeapi-tutorial.git"
+  },
+  "keywords": [],
+  "author": "Mushi Mbonyumugara",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Mugara250/crud-nodeapi-tutorial/issues"
+  },
+  "homepage": "https://github.com/Mugara250/crud-nodeapi-tutorial#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
