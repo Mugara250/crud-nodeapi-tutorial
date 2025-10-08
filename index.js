@@ -23,6 +23,12 @@ app.get("/api/products", async (request, response) => {
   }
 });
 
+app.get("/api/products/:id", async (request, response) => {
+  const id = request.params.id
+  const product = await Product.findById(id);
+  response.json(product);
+})
+
 app.post("/api/products", async (request, response) => {
   const product = new Product(request.body);
   try {
@@ -34,13 +40,34 @@ app.post("/api/products", async (request, response) => {
   }
 });
 
-app.get('/api/check-db', (req, res) => {
+app.delete("/api/products/:id", async (request, response) => {
+  const id = request.params.id;
+  try {
+    const product = await Product.findById(id);
+    if (!product) response.status(404).json({ error: "Product not found!" });
+    await Product.deleteOne(product);
+    response.send(`Product with ${id} has been deleted in the database!`);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
+app.delete("/api/products", async (request, response) => {
+  try {
+    await Product.deleteMany();
+    response.send("All products in the database have been deleted!");
+  } catch (error) {
+    response.status(500).json({error: error.message});
+  }
+})
+
+app.get("/api/check-db", (req, res) => {
   const dbInfo = {
     databaseName: mongoose.connection.db.databaseName,
     connectionState: mongoose.connection.readyState,
-    connectionString: process.env.MONGODB_URI
+    connectionString: process.env.MONGODB_URI,
   };
-  console.log('📊 Current DB Info:', dbInfo);
+  console.log("📊 Current DB Info:", dbInfo);
   res.json(dbInfo);
 });
 
